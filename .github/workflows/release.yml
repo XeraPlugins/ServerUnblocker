@@ -15,9 +15,38 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Build and publish release
+  build:
+    name: Build ${{ matrix.minecraft }}
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        minecraft:
+          - "1.19.4"
+          - "1.20"
+          - "1.20.1"
+          - "1.20.2"
+          - "1.20.3"
+          - "1.20.4"
+          - "1.20.5"
+          - "1.20.6"
+          - "1.21"
+          - "1.21.1"
+          - "1.21.2"
+          - "1.21.3"
+          - "1.21.4"
+          - "1.21.5"
+          - "1.21.6"
+          - "1.21.7"
+          - "1.21.8"
+          - "1.21.9"
+          - "1.21.10"
+          - "1.21.11"
+          - "26.1"
+          - "26.1.1"
+          - "26.1.2"
+          - "26.2"
 
     steps:
       - name: Checkout
@@ -46,14 +75,30 @@ jobs:
         with:
           gradle-version: 9.6.1
 
-      - name: Build all versions
-        run: gradle chiseledBuild
+      - name: Build ${{ matrix.minecraft }}
+        run: gradle :${{ matrix.minecraft }}:build
 
-      - name: Collect release jars
-        run: |
-          mkdir -p release-assets
-          find versions -path "*/build/libs/serverunblocker-mc-*.jar" ! -name "*-sources.jar" -exec cp {} release-assets/ \;
-          test -n "$(find release-assets -name '*.jar' -print -quit)"
+      - name: Upload ${{ matrix.minecraft }} jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: serverunblocker-mc-${{ matrix.minecraft }}
+          path: |
+            versions/${{ matrix.minecraft }}/build/libs/serverunblocker-mc-${{ matrix.minecraft }}-*.jar
+            !versions/${{ matrix.minecraft }}/build/libs/*-sources.jar
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+
+    steps:
+      - name: Download built jars
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
 
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
@@ -64,3 +109,4 @@ jobs:
           files: release-assets/*.jar
           fail_on_unmatched_files: true
           generate_release_notes: true
+          overwrite_files: true
