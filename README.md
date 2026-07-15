@@ -22,6 +22,10 @@ It was built in case Mojang blocks our server, `8b8t.me`, for any reason. When i
 
 After launch, `8b8t.me` should appear in your multiplayer server list and blocked servers should be joinable.
 
+## Privacy
+
+No data is collected from this mod. Unlike 6b6t's AnarchyMod that sends to their servers for analytics/data collection, ServerUnblocker collects 0 data.
+
 ## Supported Versions
 
 This project is built with [Stonecutter](https://stonecutter.kikugie.dev/) for multiple Minecraft/Fabric versions. Each supported version has its own build config in `versions/<version>/gradle.properties`.
