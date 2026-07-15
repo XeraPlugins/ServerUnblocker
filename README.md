@@ -3,9 +3,7 @@
 A Fabric client mod, written in **Kotlin**, that:
 
 - **Unblocks every server** — neutralises Mojang's blocked-server list check so any server that ends up on the block list (e.g. anarchy servers) can still be added and joined.
-- **Auto-adds 8b8t.me** — inserts `8b8t.me` at the top of your multiplayer server list on launch if it isn't already there.
-
-This is an independent Kotlin reimplementation inspired by the technique used by AnarchyMod. It shares no code with it.
+- **Adds 8b8t.me to your serverlist** — inserts `8b8t.me` at the top of your multiplayer server list on launch if it isn't already there.
 
 ## How it works
 
