@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "serverunblocker",
+  "version": "${version}",
+  "name": "ServerUnblocker",
+  "description": "Bypass Mojang's blocked-server list so any blocked anarchy server can be added and joined, and auto-adds 8b8t.me to your server list.",
+  "authors": [
+    "XERA INC"
+  ],
+  "contact": {
+    "sources": "https://github.com/yourname/ServerUnblocker"
+  },
+  "license": "MIT",
+  "icon": "assets/serverunblocker/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.serverunblocker.ServerUnblocker"
+      }
+    ]
+  },
+  "mixins": [
+    "serverunblocker.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*",
+    "minecraft": "${minecraft_version}",
+    "java": ">=${java_version}"
+  }
+}
