@@ -1,53 +1,61 @@
 # ServerUnblocker
 
-A Fabric client mod, written in **Kotlin**, that:
+ServerUnblocker is a Fabric client mod for players who want to keep `8b8t.me` easy to access.
 
-- **Unblocks every server** — neutralises Mojang's blocked-server list check so any server that ends up on the block list (e.g. anarchy servers) can still be added and joined.
-- **Adds 8b8t.me to your serverlist** — inserts `8b8t.me` at the top of your multiplayer server list on launch if it isn't already there.
+It was built in case Mojang blocks our server, `8b8t.me`, for any reason. When installed, the mod keeps blocked servers joinable and automatically adds `8b8t.me` to your Minecraft multiplayer server list.
 
-## How it works
+## Features
 
-Two Mixins do all the work:
+- Unblocks servers affected by Mojang's blocked-server list.
+- Adds `8b8t.me` to the top of your multiplayer server list if it is not already there.
+- Runs client-side only.
+- Supports multiple Fabric Minecraft versions.
+
+## Install
+
+1. Download the jar that matches your Minecraft version from the GitHub Releases page.
+2. Install [Fabric Loader](https://fabricmc.net/).
+3. Install [Fabric API](https://modrinth.com/mod/fabric-api).
+4. Install [Fabric Language Kotlin](https://modrinth.com/mod/fabric-language-kotlin).
+5. Put the downloaded `serverunblocker-mc-<version>.jar` file into your `.minecraft/mods` folder.
+6. Launch Minecraft with your Fabric profile.
+
+After launch, `8b8t.me` should appear in your multiplayer server list and blocked servers should be joinable.
+
+## Supported Versions
+
+This project is built with [Stonecutter](https://stonecutter.kikugie.dev/) for multiple Minecraft/Fabric versions. Each supported version has its own build config in `versions/<version>/gradle.properties`.
+
+## Contact
+
+- Email: contact@8b8t.me
+- Discord: https://discord.8b8t.me
+
+## For Developers
+
+Requires a compatible JDK and internet access for Gradle to download Minecraft, mappings, and Fabric dependencies.
+
+```bash
+# Build the active version
+gradle build
+
+# Build every configured version
+gradle chiseledBuild
+```
+
+Output jars are created in `versions/<mc>/build/libs/`.
+
+## How This Works
+
+ServerUnblocker uses two client-side Mixins:
 
 | Mixin | Target | Effect |
 |-------|--------|--------|
-| `BlockedServersMixin` | `com.mojang.patchy.BlockedServers#isBlockedServerHostName` | Injects at `RETURN` and forces `false`, so nothing is ever considered blocked. |
-| `ServerListMixin` | `net.minecraft.client.multiplayer.ServerList#load` | After the list loads, adds `8b8t.me` at the top if missing. |
+| `BlockedServersMixin` | `com.mojang.patchy.BlockedServers#isBlockedServerHostName` | Forces the blocked-server check to return `false`. |
+| `ServerListMixin` | `net.minecraft.client.multiplayer.ServerList#load` | Adds `8b8t.me` to the top of the server list after it loads, if missing. |
 
-`ServerUnblocker` (the `ClientModInitializer`) just logs on startup — no runtime logic is needed.
+The mod does not need server-side installation. It only changes how your own Minecraft client handles the blocked-server check and server list.
 
-## Supported versions
+## License
 
-Built with [Stonecutter](https://stonecutter.kikugie.dev/) across Minecraft **1.19.4 → 26.2** on Fabric. The `versions/` folder holds one `gradle.properties` per version with its exact loader / Fabric API / Java requirement.
-
-## Building
-
-Requires a JDK matching the newest target (Java 25 for the 26.x modules) and internet access for Gradle to download Minecraft, mappings, and Fabric.
-
-```bash
-# active single version (set in stonecutter.gradle.kts, default 26.2)
-./gradlew build
-
-# every version at once
-./gradlew chiseledBuild
-```
-
-Output JARs land in each module's `versions/<mc>/build/libs/`.
-
-> The repo ships `gradle/wrapper/gradle-wrapper.properties` but not the wrapper JAR. Run `gradle wrapper` once (with a system Gradle) to generate `gradlew` + the JAR, or open the project in IntelliJ IDEA and let it set the wrapper up.
-
-## Installing (players)
-
-1. Install [Fabric Loader](https://fabricmc.net/), [Fabric API](https://modrinth.com/mod/fabric-api), and [Fabric Language Kotlin](https://modrinth.com/mod/fabric-language-kotlin) for your Minecraft version.
-2. Drop the matching `serverunblocker-mc-<version>.jar` into `.minecraft/mods`.
-3. Launch — `8b8t.me` appears in your server list and blocked servers are joinable.
-
-## Notes & maintenance
-
-- **Kotlin is compiled to JVM 21 bytecode** even on the Java 25 (26.x) modules, because the Kotlin compiler doesn't yet emit JVM 25 bytecode. Bump `kotlinTarget` in the build scripts once it does.
-- **Fabric Language Kotlin** is declared as a runtime dependency in `fabric.mod.json` rather than pinned per-version in Gradle, so the build stays valid across the whole version range. For in-dev `runClient`, uncomment the `modRuntimeOnly` FLK line in the relevant build script and set a version that matches your MC.
-- Per-version numbers in `versions/*/gradle.properties` are the main thing to update over time.
-
-## Why this exists / fair use
-
-The mod deliberately defeats a client-side moderation feature (Mojang's server block list). That's a well-established anarchy-community modding practice and doesn't harm your machine, but it's your call whether to use it. MIT licensed.
+MIT licensed.
