@@ -13,8 +13,8 @@ It was built in case Mojang blocks our server, `8b8t.me`, for any reason. When i
 - Runs client-side only.
 - Supports multiple Fabric Minecraft versions.
 
-## Install
-
+## Download
+### <a href="https://github.com/XeraPlugins/ServerUnblocker/releases/">Click here to download</a>
 1. Download the jar that matches your Minecraft version from the GitHub Releases page.
 2. Install [Fabric Loader](https://fabricmc.net/).
 3. Install [Fabric API](https://modrinth.com/mod/fabric-api).
