@@ -15,7 +15,7 @@ class BlockedServersMixin {
         cancellable = true,
         remap = false,
     )
-    private fun serverunblockerUnblockEverything(_hostName: String, cir: CallbackInfoReturnable<Boolean>) {
-        cir.returnValue = false
+    private fun serverunblockerUnblockEverything(_hostName: String?, cir: CallbackInfoReturnable<Boolean>?) {
+        cir?.returnValue = false
     }
 }

@@ -25,7 +25,6 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     implementation("net.fabricmc:fabric-loader:$loaderVersion")
     implementation("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
-    include(kotlin("stdlib"))
 }
 
 loom {

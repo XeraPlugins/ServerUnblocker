@@ -1,6 +1,7 @@
 package com.serverunblocker.mixin
 
-import com.serverunblocker.ServerUnblocker
+import com.serverunblocker.DEFAULT_SERVER_IP
+import com.serverunblocker.DEFAULT_SERVER_NAME
 import net.minecraft.client.multiplayer.ServerData
 import net.minecraft.client.multiplayer.ServerList
 import org.spongepowered.asm.mixin.Final
@@ -15,17 +16,19 @@ class ServerListMixin {
 
     @field:Shadow
     @field:Final
-    private lateinit var serverList: MutableList<ServerData>
+    private var serverList: MutableList<ServerData>? = null
 
     @Inject(method = ["load"], at = [At("RETURN")])
-    private fun serverunblockerAddDefaultServer(_ci: CallbackInfo) {
-        val alreadyThere = serverList.any { it.ip.equals(ServerUnblocker.DEFAULT_SERVER_IP, ignoreCase = true) }
-        if (alreadyThere) return
+    private fun serverunblockerAddDefaultServer(_ci: CallbackInfo?) {
+        val servers = serverList ?: return
+        for (server in servers) {
+            if (java.lang.String.CASE_INSENSITIVE_ORDER.compare(server.ip, DEFAULT_SERVER_IP) == 0) return
+        }
 
         //? if <1.20.2 {
-        /*serverList.add(0, ServerData(ServerUnblocker.DEFAULT_SERVER_NAME, ServerUnblocker.DEFAULT_SERVER_IP, false))
+        /*servers.add(0, ServerData(DEFAULT_SERVER_NAME, DEFAULT_SERVER_IP, false))
         *///?} else {
-        serverList.add(0, ServerData(ServerUnblocker.DEFAULT_SERVER_NAME, ServerUnblocker.DEFAULT_SERVER_IP, ServerData.Type.OTHER))
+        servers.add(0, ServerData(DEFAULT_SERVER_NAME, DEFAULT_SERVER_IP, ServerData.Type.OTHER))
         //?}
     }
 }
