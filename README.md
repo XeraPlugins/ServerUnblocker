@@ -22,9 +22,11 @@ It was built in case Mojang blocks our server, `8b8t.me`, for any reason. When i
 
 After launch, `8b8t.me` should appear in your multiplayer server list and blocked servers should be joinable.
 
-## Privacy
+## Privacy / Telemetry
 
-No data is collected from this mod. Unlike 6b6t's AnarchyMod that sends to their servers for analytics/data collection, ServerUnblocker collects 0 data.
+ServerUnblocker is built with **privacy as a core principle**. The mod does **not** collect, store, or transmit any personal or usage data. It operates entirely client-side and never sends information to our servers.
+
+Unlike 6b6t's AnarchyMod, which sends data to its servers for analytics and data collection, ServerUnblocker collects absolutely **zero data**. No analytics, no telemetry, no tracking—ever.
 
 ## Supported Versions
 
