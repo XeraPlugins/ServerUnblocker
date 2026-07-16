@@ -2,7 +2,7 @@
 <img width="250" height="250" alt="ServerUnblocker (1)" src="https://github.com/user-attachments/assets/5e4a7a00-eae9-49c9-a12f-2e383baa34cc" />
 
 
-ServerUnblocker is a Fabric client mod for players who want to keep `8b8t.me` easy to access.
+ServerUnblocker is a Fabric client mod for players who want to keep `8b8t.me` easy to access or for players trying to join banned/blocked Minecraft servers by Mojang.
 
 It was built in case Mojang blocks our server, `8b8t.me`, for any reason. When installed, the mod keeps blocked servers joinable and automatically adds `8b8t.me` to your Minecraft multiplayer server list.
 
