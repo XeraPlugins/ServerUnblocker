@@ -18,9 +18,8 @@ It was built in case Mojang blocks our server, `8b8t.me`, for any reason. When i
 1. Download the jar that matches your Minecraft version from the GitHub Releases page.
 2. Install [Fabric Loader](https://fabricmc.net/).
 3. Install [Fabric API](https://modrinth.com/mod/fabric-api).
-4. Install [Fabric Language Kotlin](https://modrinth.com/mod/fabric-language-kotlin).
-5. Put the downloaded `serverunblocker-mc-<version>.jar` file into your `.minecraft/mods` folder.
-6. Launch Minecraft with your Fabric profile.
+4. Put the downloaded `serverunblocker-mc-<version>.jar` file into your `.minecraft/mods` folder.
+5. Launch Minecraft with your Fabric profile.
 
 After launch, `8b8t.me` should appear in your multiplayer server list and blocked servers should be joinable.
 

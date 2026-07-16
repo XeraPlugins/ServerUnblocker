@@ -12,8 +12,6 @@ val loaderVersion = property("loader_version") as String
 val fabricApiVersion = property("fabric_api_version") as String
 val javaVersion = (property("java_version") as String).toInt()
 
-// Kotlin can only emit bytecode up to JVM 21 today; on newer JDKs we still
-// target 21 so the same sources build on the 26.x (Java 25) modules.
 val kotlinTarget = minOf(javaVersion, 21)
 
 version = property("mod_version")!!
@@ -28,10 +26,7 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
-    // Fabric Language Kotlin provides the runtime adapter. It is declared as a
-    // dependency in fabric.mod.json, so end users install it like Fabric API.
-    // Uncomment for dev runs if your local FLK build matches this MC version:
-    // modRuntimeOnly("net.fabricmc:fabric-language-kotlin:1.13.6+kotlin.2.1.20")
+    include(kotlin("stdlib"))
 }
 
 loom {

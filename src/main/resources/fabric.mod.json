@@ -8,17 +8,14 @@
     "XERA INC"
   ],
   "contact": {
-    "sources": "https://github.com/yourname/ServerUnblocker"
+    "sources": "https://github.com/XeraPlugins/ServerUnblocker"
   },
   "license": "MIT",
   "icon": "assets/serverunblocker/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      {
-        "adapter": "kotlin",
-        "value": "com.serverunblocker.ServerUnblocker"
-      }
+      "com.serverunblocker.ServerUnblocker"
     ]
   },
   "mixins": [
@@ -27,7 +24,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
-    "fabric-language-kotlin": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=${java_version}"
   }
